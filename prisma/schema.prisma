@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,9 +8,10 @@ datasource db {
 }
 
 model Fans {
-  id    Int     @id @default(autoincrement())
-  name  String?
-  clubs Clubs[]
+  id        Int       @id @default(autoincrement())
+  name      String?
+  clubs     Clubs[]
+  createdAt DateTime?
 
   @@map("fans")
 }
@@ -20,23 +20,34 @@ model Clubs {
   id             Int           @id @default(autoincrement())
   name           String        @unique
   city           String
-  pais           String
   country        String
-  championship   String   
   colors         String
   fans           Fans[]
   Championship   Championship? @relation(fields: [championshipId], references: [id])
   championshipId Int?
+  createdAt      DateTime?
+  stadium        Stadium?      @relation(fields: [stadiumId], references: [id])
+  stadiumId      Int?          @unique
 
   @@map("clubs")
 }
 
+model Stadium {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime?
+  club      Clubs?
+
+  @@map("stadium")
+}
+
 model Championship {
-  id               Int     @id @default(autoincrement())
-  name             String  @unique
+  id               Int       @id @default(autoincrement())
+  name             String    @unique
   quality_clubs    String
   number_of_rounds Int
   clubs            Clubs[]
+  createdAt        DateTime?
 
   @@map("championship")
 }
