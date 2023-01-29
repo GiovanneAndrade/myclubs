@@ -14,12 +14,14 @@ async function getFansController(req: Request, res: Response) {
 }
 
 async function postFansController(req: Request, res: Response) {
-  const { name }:{name:string} = req.body;
+  const { name, idClubs }:{name:string, idClubs:Array<any>} = req.body;
  
   try {
-    const result = await allUser.postFansRepository( );
+    //const result = await allUser.postFansRepository( name );
+    const resultFans = await allUser.postFansRepository( name, idClubs );
 
-    return res.send(result);
+
+    return res.send(resultFans);
   } catch (error) {
     return res.sendStatus(500).send(error);
   }
