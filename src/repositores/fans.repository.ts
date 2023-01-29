@@ -18,7 +18,7 @@ function getFansRepository() {
   return result;
 }
 
-function postFansRepository() {
+function FansRepository(name: string) {
   const result = prisma.fans.update({
     where: {
       id: 2,
@@ -27,6 +27,16 @@ function postFansRepository() {
       clubs: {
         connect: [{ id: 5 }, { id: 1 }, { id: 8 }, { id: 7 }],
       },
+    },
+  });
+
+  return result;
+}
+function postFansRepository(name: string, idClubs:Array<any>) {
+  const result = prisma.fans.create({
+    data: {
+      name: name
+      
     },
   });
 
