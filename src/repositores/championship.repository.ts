@@ -16,27 +16,33 @@ function getChampionshipRepository() {
   return result;
 }
 
-function postChampionshipRepository() {
+function postChampionshipRepository({ name, quality_clubs, number_of_rounds }) {
   const result = prisma.championship.create({
     data: {
-      name: "Serie B",
-      quality_clubs: "20",
-      number_of_rounds: 38,
+      name:name,
+      quality_clubs: quality_clubs,
+      number_of_rounds: number_of_rounds,
     },
   });
 
   return result;
 }
 
-function putChampionshipRepository() {
+function putChampionshipRepository({
+  name,
+  quality_clubs,
+  number_of_rounds,
+  id
+}) {
+  
   const result = prisma.championship.update({
     where: {
-      id: 1,
+      id: Number(id),
     },
     data: {
-      name: "Serie A",
-      quality_clubs: "20",
-      number_of_rounds: 38,
+      name: name,
+      quality_clubs: quality_clubs,
+      number_of_rounds: Number(number_of_rounds),
     },
   });
 
