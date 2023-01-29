@@ -1,13 +1,24 @@
-import { Router } from "express"
-import { getChampionshipController, postChampionshipController, putChampionshipController } from "../controllers/championship.controller.js"
+import { Router } from "express";
+import {
+  getChampionshipController,
+  postChampionshipController,
+  putChampionshipController,
+} from "../controllers/championship.controller.js";
+import postChampionshipSchema from "../schemas/championship.schemas.js";
+import { validateSchema } from "../schemas/shemaValidation.js";
 
- 
+const router = Router();
 
-const router = Router()
+router.get("/championship", getChampionshipController);
+router.post(
+  "/championship",
+  validateSchema(postChampionshipSchema),
+  postChampionshipController
+);
+router.put(
+  "/championship/:id",
+  validateSchema(postChampionshipSchema),
+  putChampionshipController
+);
 
-router.get('/championship', getChampionshipController)
-router.post('/championship', postChampionshipController)
-router.put('/championship', putChampionshipController)
-
-
-export default router
+export default router;
