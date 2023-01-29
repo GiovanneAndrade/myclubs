@@ -16,24 +16,39 @@ async function postChampionshipController(req: Request, res: Response) {
     name,
     quality_clubs,
     number_of_rounds,
-  } : { name: string; 
-      quality_clubs: string; 
-      number_of_rounds: number 
-  } = req.body;
+  }: { name: string; quality_clubs: string; number_of_rounds: number } =
+    req.body;
   try {
-    const result = await allChampionship.postChampionshipRepository();
+    const result = await allChampionship.postChampionshipRepository({
+      name,
+      quality_clubs,
+      number_of_rounds,
+    });
 
-    return res.send(result);
+    return res.sendStatus(201);
   } catch (error) {
     return res.sendStatus(500).send(error);
   }
 }
 
 async function putChampionshipController(req: Request, res: Response) {
+  const { id } = req.params;
+  console.log(req.params);
+  const {
+    name,
+    quality_clubs,
+    number_of_rounds,
+  }: { name: string; quality_clubs: string; number_of_rounds: number } =
+    req.body;
   try {
-    const result = await allChampionship.putChampionshipRepository();
+    const result = await allChampionship.putChampionshipRepository({
+      name,
+      quality_clubs,
+      number_of_rounds,
+      id,
+    });
 
-    return res.send(result);
+    return res.sendStatus(200);
   } catch (error) {
     return res.sendStatus(500).send(error);
   }
