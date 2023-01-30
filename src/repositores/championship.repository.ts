@@ -16,6 +16,16 @@ function getChampionshipRepository() {
   return result;
 }
 
+function colsultChampionshipRepository(name: string) {
+  const result = prisma.championship.findMany({
+    where:{
+       name:name
+    }
+  });
+
+  return result;
+}
+
 function postChampionshipRepository({ name, quality_clubs, number_of_rounds }) {
   const result = prisma.championship.create({
     data: {
@@ -53,4 +63,5 @@ export {
   getChampionshipRepository,
   postChampionshipRepository,
   putChampionshipRepository,
+  colsultChampionshipRepository
 };
