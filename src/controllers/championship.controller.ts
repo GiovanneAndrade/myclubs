@@ -5,19 +5,31 @@ async function getChampionshipController(req: Request, res: Response) {
   try {
     const result = await allChampionship.getChampionshipRepository();
 
-    return res.send(result);
+    return res.send(result);   
   } catch (error) {
     return res.sendStatus(500).send(error);
   }
 }
 
 async function postChampionshipController(req: Request, res: Response) {
-  const {
+   
+ const {
     name,
     quality_clubs,
     number_of_rounds,
   }: { name: string; quality_clubs: string; number_of_rounds: number } =
     req.body;
+
+
+    const result = await allChampionship.colsultChampionshipRepository(
+      name
+    );
+   
+    if (result.length > 0) {
+      return res.status(404).send("Campeonato ja existe");
+    }
+
+
   try {
     const result = await allChampionship.postChampionshipRepository({
       name,
@@ -32,8 +44,7 @@ async function postChampionshipController(req: Request, res: Response) {
 }
 
 async function putChampionshipController(req: Request, res: Response) {
-  const { id } = req.params;
-  console.log(req.params);
+const { id } = req.params;
   const {
     name,
     quality_clubs,
