@@ -17,6 +17,15 @@ function getClubsRepository() {
 
   return result;
 }
+function getClubsNameRepository(name) {
+  const result = prisma.clubs.findMany({
+   where:{
+    name: name
+   }
+  });
+
+  return result;
+}
 
 function postStadiunRepository(name: string, id: number) {
   const result = prisma.stadium.create({
@@ -109,4 +118,5 @@ export {
   getStadiunRepository,
   deleteClubRepository,
   updateClubRepository,
+  getClubsNameRepository
 };
