@@ -18,9 +18,18 @@ function getChampionshipRepository() {
 
 function colsultChampionshipRepository(name: string) {
   const result = prisma.championship.findMany({
-    where:{
-       name:name
-    }
+    where: {
+      name: name,
+    },
+  });
+
+  return result;
+}
+function championshipByIdRepository(id: number) {
+  const result = prisma.championship.findMany({
+    where: {
+      id: id,
+    },
   });
 
   return result;
@@ -29,7 +38,7 @@ function colsultChampionshipRepository(name: string) {
 function postChampionshipRepository({ name, quality_clubs, number_of_rounds }) {
   const result = prisma.championship.create({
     data: {
-      name:name,
+      name: name,
       quality_clubs: quality_clubs,
       number_of_rounds: number_of_rounds,
     },
@@ -42,9 +51,8 @@ function putChampionshipRepository({
   name,
   quality_clubs,
   number_of_rounds,
-  id
+  id,
 }) {
-  
   const result = prisma.championship.update({
     where: {
       id: Number(id),
@@ -63,5 +71,6 @@ export {
   getChampionshipRepository,
   postChampionshipRepository,
   putChampionshipRepository,
-  colsultChampionshipRepository
+  colsultChampionshipRepository,
+  championshipByIdRepository,
 };
