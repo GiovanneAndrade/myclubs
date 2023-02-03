@@ -3,9 +3,9 @@ import {
   getChampionshipController,
   postChampionshipController,
   putChampionshipController,
-} from "../controllers/championship.controller.js";
-import postChampionshipSchema from "../schemas/championship.schemas.js";
-import { validateSchema } from "../schemas/shemaValidation.js";
+} from "../controllers/championship.controller";
+import postChampionshipSchema from "../schemas/championship.schemas";
+import { validateSchema } from "../schemas/shemaValidation";
 
 const router = Router();
 
