@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import * as allClubs from "../repositores/clubs.repository.js";
+import * as allClubs from "../repositores/clubs.repository";
+import * as allChampionship from "../repositores/championship.repository";
 
 async function getClubsController(req: Request, res: Response) {
   try {
@@ -47,7 +48,13 @@ async function postClubsController(req: Request, res: Response) {
 
     championshipId: number;
   } = req.body;
-
+  const result = await allClubs.getClubsNameRepository(name);
+  const resultChampionshipId = await allChampionship.championshipByIdRepository(Number(championshipId));
+  if (result.length > 0 || resultChampionshipId.length === 0) {
+    return res.sendStatus(400)
+  }
+  
+   
   try {
     const result = await allClubs.postClubsRepository({
       name,
@@ -60,12 +67,12 @@ async function postClubsController(req: Request, res: Response) {
     return res.sendStatus(201);
   } catch (error) {
     return res.sendStatus(500).send(error);
-  }   
+  }
 }
 
 async function deleteClubController(req: Request, res: Response) {
   let { id } = req.params;
-  
+
   try {
     await allClubs.deleteClubRepository(Number(id));
 
@@ -91,7 +98,7 @@ async function updateClubController(req: Request, res: Response) {
 
     championshipId: number;
   } = req.body;
-  
+
   try {
     await allClubs.updateClubRepository({
       name,
@@ -99,7 +106,7 @@ async function updateClubController(req: Request, res: Response) {
       colors,
       country,
       championshipId,
-      id
+      id,
     });
 
     return res.sendStatus(200);
@@ -108,12 +115,11 @@ async function updateClubController(req: Request, res: Response) {
   }
 }
 
-
 export {
   getClubsController,
   postClubsController,
   postStadiunController,
   getStadiunController,
   deleteClubController,
-  updateClubController
+  updateClubController,
 };
